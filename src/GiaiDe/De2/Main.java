@@ -1,6 +1,6 @@
 package GiaiDe.De2;
 
-import GiaiDe.De1.NotFoundEmployeeException;
+import GiaiDe.De1.NotFoundCarException;
 
 import java.util.*;
 
@@ -76,8 +76,8 @@ public class Main {
                         }
                     }
                     try {
-                        throw new NotFoundEmployeeException("Bệnh án không tồn tại");
-                    } catch (NotFoundEmployeeException e) {
+                        throw new NotFoundCarException("Bệnh án không tồn tại");
+                    } catch (NotFoundCarException e) {
                         System.out.println(e.getMessage());
                     }
                 } while (true);
@@ -106,8 +106,8 @@ public class Main {
                         }
                     }
                     try {
-                        throw new NotFoundEmployeeException("Bệnh án không tồn tại");
-                    } catch (NotFoundEmployeeException e) {
+                        throw new NotFoundCarException("Bệnh án không tồn tại");
+                    } catch (NotFoundCarException e) {
                         System.out.println(e.getMessage());
                     }
                 } while (true);

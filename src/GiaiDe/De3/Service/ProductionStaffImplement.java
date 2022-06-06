@@ -1,8 +1,6 @@
 package GiaiDe.De3.Service;
 
-import GiaiDe.De1.NotFoundEmployeeException;
-import GiaiDe.De3.Controller.Controller;
-import GiaiDe.De3.Model.Manager;
+import GiaiDe.De1.NotFoundCarException;
 import GiaiDe.De3.Model.Staff;
 import GiaiDe.De3.utils.CheckException;
 import GiaiDe.De3.utils.FileService;
@@ -17,14 +15,13 @@ public class ProductionStaffImplement implements ProductionStaff{
 
     private static List<GiaiDe.De3.Model.ProductionStaff> productionStaffs = new ArrayList<>();
     private static Scanner scanner = new Scanner(System.in);
-    private static final String FILE_NAME_PRODUCTION_STAFF = "src/GiaiDe/De3/Data/productionStaff.csv";
+    private static final String FILE_NAME = "src/GiaiDe/De3/Data/Staff.csv";
     private static final String MONEY = "^[0-9]+$";
     private static final String BIRTHDAY = "^(0?[1-9]|[12][0-9]|3[01])[\\/\\-](0?[1-9]|1[012])[\\/\\-]\\d{4}$";
 
     @Override
     public void display() {
-        productionStaffs = FileService.readProductionStaff(FILE_NAME_PRODUCTION_STAFF);
-
+        productionStaffs = FileService.readProductionStaff(FILE_NAME);
         if (!productionStaffs.isEmpty()) {
             for (GiaiDe.De3.Model.ProductionStaff productionStaff : productionStaffs) {
                 System.out.println(productionStaff);
@@ -36,7 +33,7 @@ public class ProductionStaffImplement implements ProductionStaff{
 
     @Override
     public void add() {
-        productionStaffs = FileService.readProductionStaff(FILE_NAME_PRODUCTION_STAFF);
+        productionStaffs = FileService.readProductionStaff(FILE_NAME);
 
         if (productionStaffs.isEmpty()) {
             Staff.setCountId(1);
@@ -74,13 +71,13 @@ public class ProductionStaffImplement implements ProductionStaff{
         double price = Double.parseDouble(inputMoney());
         productionStaffs.add(new GiaiDe.De3.Model.ProductionStaff(Staff.getCountId(), id1, name1, birthday, address, amount, price));
 
-        FileService.writeProductionStaff(FILE_NAME_PRODUCTION_STAFF, productionStaffs);
+        FileService.writeProductionStaff(FILE_NAME, productionStaffs);
     }
 
     @Override
     public void delete() {
         do {
-            productionStaffs = FileService.readProductionStaff(FILE_NAME_PRODUCTION_STAFF);
+            productionStaffs = FileService.readProductionStaff(FILE_NAME);
             System.out.println("Nhập id cần xóa: ");
             Integer inputId = CheckException.checkParseInteger();
             for (GiaiDe.De3.Model.ProductionStaff productionStaff : productionStaffs) {
@@ -90,7 +87,7 @@ public class ProductionStaffImplement implements ProductionStaff{
                     switch (choose1) {
                         case 1:
                             productionStaffs.remove(productionStaff);
-                            FileService.writeProductionStaff(FILE_NAME_PRODUCTION_STAFF, productionStaffs);
+                            FileService.writeProductionStaff(FILE_NAME, productionStaffs);
                             display();
                             return;
                         case 2:
@@ -102,8 +99,8 @@ public class ProductionStaffImplement implements ProductionStaff{
                 }
             }
             try {
-                throw new NotFoundEmployeeException("Nhan vien không tồn tại");
-            } catch (NotFoundEmployeeException e) {
+                throw new NotFoundCarException("Nhan vien không tồn tại");
+            } catch (NotFoundCarException e) {
                 System.out.println(e.getMessage());
             }
         } while (true);
@@ -111,7 +108,7 @@ public class ProductionStaffImplement implements ProductionStaff{
 
     @Override
     public void search() {
-        productionStaffs = FileService.readProductionStaff(FILE_NAME_PRODUCTION_STAFF);
+        productionStaffs = FileService.readProductionStaff(FILE_NAME);
 
         System.out.print("Enter name for search: ");
         String name = scanner.nextLine();
@@ -134,7 +131,7 @@ public class ProductionStaffImplement implements ProductionStaff{
     }
 
     private static boolean checkNameExists(String name) {
-        productionStaffs = FileService.readProductionStaff(FILE_NAME_PRODUCTION_STAFF);
+        productionStaffs = FileService.readProductionStaff(FILE_NAME);
 
         for (GiaiDe.De3.Model.ProductionStaff productionStaff : productionStaffs) {
             if (productionStaff.getName().contains(name.toLowerCase())) {

@@ -41,7 +41,7 @@ public class Manager extends Staff {
 
     @Override
     public String toString() {
-        return "Manager{" + super.toString() +
+        return "Manager" + super.toString() +
                 "salary=" + salary +
                 ", coefficient=" + coefficient +
                 '}';

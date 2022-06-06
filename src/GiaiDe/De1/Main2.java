@@ -195,8 +195,8 @@ public class Main2 {
                         }
                     }
                     try {
-                        throw new NotFoundEmployeeException("Điện thoại này không tồn tại");
-                    } catch (NotFoundEmployeeException e) {
+                        throw new NotFoundCarException("Điện thoại này không tồn tại");
+                    } catch (NotFoundCarException e) {
                         System.out.println(e.getMessage());
                     }
                 } while (true);
@@ -225,8 +225,8 @@ public class Main2 {
                         }
                     }
                     try {
-                        throw new NotFoundEmployeeException("Điện thoại này không tồn tại");
-                    } catch (NotFoundEmployeeException e) {
+                        throw new NotFoundCarException("Điện thoại này không tồn tại");
+                    } catch (NotFoundCarException e) {
                         System.out.println(e.getMessage());
                     }
                 } while (true);

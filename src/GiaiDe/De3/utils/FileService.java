@@ -2,6 +2,7 @@ package GiaiDe.De3.utils;
 
 import GiaiDe.De3.Model.Manager;
 import GiaiDe.De3.Model.ProductionStaff;
+import GiaiDe.De3.Model.Staff;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -27,6 +28,15 @@ public class FileService {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void writeStaff(String pathFile, List<Staff> staff) {
+        List<String> strings = new ArrayList<>();
+
+        for (Staff staff1 : staff) {
+            strings.add(staff1.convertLine());
+        }
+        writeToFile(pathFile, strings);
     }
 
     public static void writeManager(String pathFile, List<Manager> managers) {
