@@ -4,9 +4,7 @@ import GiaiDe.De1.NotFoundEmployeeException;
 import GiaiDe.De3.Model.Manager;
 import GiaiDe.De3.Model.ProductionStaff;
 import GiaiDe.De3.Model.Staff;
-import GiaiDe.De3.utils.CheckException;
-import GiaiDe.De3.utils.FileService;
-import GiaiDe.De3.utils.MySearchException;
+import GiaiDe.De3.utils.*;
 
 import java.util.*;
 
@@ -16,7 +14,8 @@ public class Controller {
     private static Scanner scanner = new Scanner(System.in);
     private static final String FILE_NAME_MANAGER = "src/GiaiDe/De3/Data/manager.csv";
     private static final String FILE_NAME_PRODUCTION_STAFF = "src/GiaiDe/De3/Data/productionStaff.csv";
-    private static final String AGE = "";
+    private static final String MONEY = "^[0-9]+$";
+    private static final String BIRTHDAY = "^(0?[1-9]|[12][0-9]|3[01])[\\/\\-](0?[1-9]|1[012])[\\/\\-]\\d{4}$";
 
     public static void choiceManager() {
         while (true) {
@@ -122,16 +121,16 @@ public class Controller {
         String name = scanner.nextLine();
 
         System.out.print("Ngay sinh: ");
-        String birthday = scanner.nextLine();
+        String birthday = inputAge();
 
         System.out.println("Dia chi: ");
         String address = scanner.nextLine();
 
         System.out.println("Luong co ban");
-        double salary = Double.parseDouble(scanner.nextLine());
+        double salary = Double.parseDouble(inputMoney());
 
         System.out.println("He so luong");
-        double cofficiency = Double.parseDouble(scanner.nextLine());
+        double cofficiency = Double.parseDouble(inputMoney());
 
         managers.add(new Manager(Staff.getCountId(), id, name, birthday, address, salary, cofficiency));
 
@@ -233,16 +232,16 @@ public class Controller {
         String name1 = scanner.nextLine();
 
         System.out.print("Ngay sinh: ");
-        String birthday = scanner.nextLine();
+        String birthday = inputAge();
 
         System.out.println("Dia chi: ");
         String address = scanner.nextLine();
 
         System.out.println("Nhap so san pham");
-        int amount = Integer.parseInt(scanner.nextLine());
+        int amount = Integer.parseInt(inputMoney());
 
         System.out.println("Nhap gia san pham");
-        double price = Double.parseDouble(scanner.nextLine());
+        double price = Double.parseDouble(inputMoney());
         productionStaffs.add(new ProductionStaff(Staff.getCountId(), id1, name1, birthday, address, amount, price));
 
         FileService.writeProductionStaff(FILE_NAME_PRODUCTION_STAFF, productionStaffs);
@@ -311,5 +310,13 @@ public class Controller {
                 System.out.println(e.getMessage());
             }
         } while (true);
+    }
+
+    public static String inputMoney(){
+        return RegexData.regexStr(scanner.nextLine(), MONEY, "Phai la so duong");
+    }
+
+    public static String inputAge(){
+        return RegexData.regexAge(scanner.nextLine(),BIRTHDAY);
     }
 }
