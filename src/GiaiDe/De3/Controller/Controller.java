@@ -115,7 +115,7 @@ public class Controller {
         }
 
         System.out.println("Ma nhan vien");
-        Integer id = Integer.parseInt(scanner.nextLine());
+        Integer id = CheckException.checkParseInteger();
 
         System.out.print("Name: ");
         String name = scanner.nextLine();
@@ -226,7 +226,7 @@ public class Controller {
         }
 
         System.out.println("Ma nhan vien");
-        Integer id1 = Integer.parseInt(scanner.nextLine());
+        Integer id1 = CheckException.checkParseInteger();
 
         System.out.print("Name: ");
         String name1 = scanner.nextLine();
