@@ -32,7 +32,7 @@ public class ProductionStaff extends Staff {
 
     @Override
     public String toString() {
-        return "ProductionStaff" + super.toString() +
+        return "ProductionStaff.csv" + super.toString() +
                 "amount=" + amount +
                 ", price=" + price +
                 '}';

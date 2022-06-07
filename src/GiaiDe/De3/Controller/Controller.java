@@ -12,8 +12,8 @@ public class Controller {
     private static List<Manager> managers = new ArrayList<>();
     private static List<ProductionStaff> productionStaffs = new ArrayList<>();
     private static Scanner scanner = new Scanner(System.in);
-    private static final String FILE_NAME_MANAGER = "src/GiaiDe/De3/Data/manager.csv";
-    private static final String FILE_NAME_PRODUCTION_STAFF = "src/GiaiDe/De3/Data/productionStaff.csv";
+    private static final String FILE_NAME_MANAGER = "src/GiaiDe/De3/Data/Manager.csv";
+    private static final String FILE_NAME_PRODUCTION_STAFF = "src/GiaiDe/De3/Data/ProductionStaff.csv";
     private static final String MONEY = "^[0-9]+$";
     private static final String BIRTHDAY = "^(0?[1-9]|[12][0-9]|3[01])[\\/\\-](0?[1-9]|1[012])[\\/\\-]\\d{4}$";
 
