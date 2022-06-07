@@ -1,10 +1,7 @@
 package GiaiDe.De5.utils;
 
-import GiaiDe.De4.model.Car;
-import GiaiDe.De4.model.Motorbike;
-import GiaiDe.De4.model.Truck;
-import GiaiDe.De5.Model.Student;
-import GiaiDe.De5.Model.Teacher;
+import GiaiDe.De5.model.Student;
+import GiaiDe.De5.model.Teacher;
 
 import java.io.*;
 import java.util.ArrayList;

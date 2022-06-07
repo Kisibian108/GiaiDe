@@ -1,14 +1,14 @@
 package GiaiDe.De5.service;
 
 import GiaiDe.De1.NotFoundCarException;
-import GiaiDe.De4.model.Car;
 import GiaiDe.De4.utils.CheckException;
-import GiaiDe.De5.Model.Student;
+import GiaiDe.De5.model.Student;
+import GiaiDe.De5.utils.ComparatorByBirthday;
 import GiaiDe.De5.utils.ComparatorbyName;
 import GiaiDe.De5.utils.FileService;
+import GiaiDe.De5.utils.RegexData;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
@@ -17,7 +17,10 @@ public class StudentImplement implements StudentImpl {
     static Scanner scanner = new Scanner(System.in);
     static List<Student> studentList = new ArrayList<>();
     public static final String STUDENT = "src/GiaiDe/De5/Data/Student.csv";
-    public static final String TEACHER = "src/GiaiDe/De5/Data/Teacher.csv";
+    public static final String REGEX_HOUR = "^[0-9]{1,10}+$";
+    public static final String REGEX_BIRTHDAY = "^(0?[1-9]|[12][0-9]|3[01])[\\/\\-](0?[1-9]|1[012])[\\/\\-]\\d{4}$";
+    public static final String POINT = "^[0-9]{1}|10+$";
+    public static final String REGEX_IDSTUDENT = "^[0-9]{8}+$";
 
     @Override
     public void display() {
@@ -59,16 +62,16 @@ public class StudentImplement implements StudentImpl {
         String gender = scanner.nextLine();
 
         System.out.println("Nhap ngay sinh");
-        String birthday = scanner.nextLine();
+        String birthday = inputAge();
 
         System.out.println("Nhap dia chi");
         String address = scanner.nextLine();
 
         System.out.println("Nhap ma sinh vien");
-        String idStudent = scanner.nextLine();
+        String idStudent = inputIDstudent();
 
         System.out.println("Nhap diem trung binh ");
-        double point = Double.parseDouble(scanner.nextLine());
+        double point = Double.parseDouble(inputPoint());
 
         studentList.add(new Student(Student.getCountID(), name, gender, birthday, address, idStudent, point));
         FileService.writeStudent(STUDENT, studentList);
@@ -110,10 +113,12 @@ public class StudentImplement implements StudentImpl {
     @Override
     public void sort() {
         studentList = FileService.readStudent(STUDENT);
-        Collections.sort(studentList, new ComparatorbyName());
+        studentList.sort(new ComparatorbyName());
+        studentList.sort(new ComparatorByBirthday());
         for (Student student : studentList) {
             System.out.println(student);
         }
+        FileService.writeStudent(STUDENT,studentList);
     }
 
     @Override
@@ -121,9 +126,13 @@ public class StudentImplement implements StudentImpl {
         studentList = FileService.readStudent(STUDENT);
         System.out.println("Nhap ID can sua");
         int id = Integer.parseInt(scanner.nextLine());
-
+        boolean isExist = false;
+       
         for (Student student: studentList) {
             if(student.getId() == id ){
+                isExist = true;
+                student.setId(id);
+
                 System.out.println("Nhap ten");
                 String name = scanner.nextLine();
                 student.setName(name);
@@ -133,7 +142,7 @@ public class StudentImplement implements StudentImpl {
                 student.setGender(gender);
 
                 System.out.println("Nhap ngay sinh");
-                String birthday = scanner.nextLine();
+                String birthday = inputAge();
                 student.setBirthday(birthday);
 
                 System.out.println("Nhap dia chi");
@@ -141,17 +150,36 @@ public class StudentImplement implements StudentImpl {
                 student.setAddress(address);
 
                 System.out.println("Nhap ma sinh vien");
-                String idStudent = scanner.nextLine();
+                String idStudent = inputIDstudent();
                 student.setIdStudent(idStudent);
 
                 System.out.println("Nhap diem trung binh");
-                double point = Double.parseDouble(scanner.nextLine());
-                student.setPoint(point);
-
-                studentList.add(new Student(id, name,gender,birthday,address,idStudent,point));
-                System.out.println("Chinh sua thanh cong");
+                String point = inputPoint();
+                student.setPoint(Double.parseDouble(point));
                 FileService.writeStudent(STUDENT,studentList);
             }
         }
+        if(isExist){
+            System.out.println("Chinh sua thanh cong");
+        }else {
+            System.out.println("Id ko ton tai");
+        }
+    }
+
+    public static String inputMoney(){
+        return RegexData.regexStr(scanner.nextLine(),REGEX_HOUR, "Phai la so duong");
+    }
+
+    public static String inputAge(){
+        return RegexData.regexAge(scanner.nextLine(), REGEX_BIRTHDAY);
+    }
+
+    public static String inputPoint(){
+        return RegexData.regexStr(scanner.nextLine(), POINT, "Phai tu 0-10");
+    }
+
+    public static String inputIDstudent(){
+        return RegexData.regexStr(scanner.nextLine(), REGEX_IDSTUDENT, "Phai co 8 so");
     }
 }
+

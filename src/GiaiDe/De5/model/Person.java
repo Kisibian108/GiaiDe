@@ -1,4 +1,4 @@
-package GiaiDe.De5.Model;
+package GiaiDe.De5.model;
 
 public abstract class Person {
 

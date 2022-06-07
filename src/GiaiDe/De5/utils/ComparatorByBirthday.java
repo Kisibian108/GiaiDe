@@ -1,6 +1,6 @@
 package GiaiDe.De5.utils;
 
-import GiaiDe.De5.Model.Person;
+import GiaiDe.De5.model.Person;
 
 import java.util.Comparator;
 
